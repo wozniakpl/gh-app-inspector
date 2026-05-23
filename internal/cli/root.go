@@ -9,6 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/wozniakpl/gh-app-inspector/internal/inspector"
+	"github.com/wozniakpl/gh-app-inspector/internal/version"
 )
 
 type flags struct {
@@ -20,8 +21,9 @@ type flags struct {
 func NewRootCmd() *cobra.Command {
 	var f flags
 	cmd := &cobra.Command{
-		Use:   "gh-app-inspector",
-		Short: "Inspect a GitHub App installation: permissions, repos, rate limit",
+		Use:     "gh-app-inspector",
+		Short:   "Inspect a GitHub App installation: permissions, repos, rate limit",
+		Version: version.Version,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := resolveEnvFallbacks(&f); err != nil {
 				return err
