@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/go-github/v66/github"
+	"github.com/google/go-github/v88/github"
 )
 
 func permissionRows(p *github.InstallationPermissions) [][2]string {
