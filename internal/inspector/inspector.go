@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/bradleyfalzon/ghinstallation/v2"
-	"github.com/google/go-github/v66/github"
+	"github.com/google/go-github/v88/github"
 	"github.com/jedib0t/go-pretty/v6/table"
 )
 
@@ -24,7 +24,10 @@ func Run(ctx context.Context, out io.Writer, cfg Config) error {
 	if err != nil {
 		return fmt.Errorf("apps transport: %w", err)
 	}
-	appClient := github.NewClient(&http.Client{Transport: appTr})
+	appClient, err := github.NewClient(github.WithHTTPClient(&http.Client{Transport: appTr}))
+	if err != nil {
+		return fmt.Errorf("app client: %w", err)
+	}
 
 	app, _, err := appClient.Apps.Get(ctx, "")
 	if err != nil {
@@ -40,7 +43,10 @@ func Run(ctx context.Context, out io.Writer, cfg Config) error {
 	renderPermissions(out, install.GetPermissions())
 
 	instTr := ghinstallation.NewFromAppsTransport(appTr, cfg.InstallationID)
-	instClient := github.NewClient(&http.Client{Transport: instTr})
+	instClient, err := github.NewClient(github.WithHTTPClient(&http.Client{Transport: instTr}))
+	if err != nil {
+		return fmt.Errorf("installation client: %w", err)
+	}
 
 	if err := renderRepos(ctx, out, instClient); err != nil {
 		return err
