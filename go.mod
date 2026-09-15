@@ -1,10 +1,11 @@
 module github.com/wozniakpl/gh-app-inspector
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/bradleyfalzon/ghinstallation/v2 v2.19.0
 	github.com/google/go-github/v89 v89.0.0
+	github.com/google/go-github/v92 v92.0.0
 	github.com/jedib0t/go-pretty/v6 v6.8.3
 	github.com/spf13/cobra v1.10.2
 )
